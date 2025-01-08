@@ -15,6 +15,9 @@ const app = initializeApp(firebaseConfig);
 document.addEventListener("DOMContentLoaded", () => {
   const auth = getAuth(app);
   const loginButton = document.getElementById("login");
+  const loginButtonIndex = document.getElementById("login-index");
+  const registerButtonIndex = document.getElementById("register-index");
+  const registerButtonHero = document.getElementById("register-hero");
   const signOutButton = document.getElementById("cerrar");
 
   if (loginButton) {
@@ -44,6 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
       auth.signOut()
         .then(() => {
           alert("Sesión cerrada");
+          if (loginButtonIndex) {
+            signOutButton.style.display = 'none'
+            loginButtonIndex.style.display = 'inline-flex'
+            registerButtonIndex.style.display = 'inline-flex'
+            registerButtonHero.style.display = 'inline-flex'
+          }
         })
         .catch(() => {
           alert("Error al cerrar la sesión");
@@ -55,6 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (user) {
       console.log("Usuario activo");
       if (user.emailVerified) {
+        if (signOutButton) {
+          signOutButton.style.display = 'inline-flex'
+          loginButtonIndex.style.display = 'none'
+          registerButtonIndex.style.display = 'none'
+          registerButtonHero.style.display = 'none'
+        }
         window.open('/');
       } else {
         auth.signOut();
