@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOrbtxFBlKgE9SSqzszje3TzhP-fLaqy8",
@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 document.addEventListener("DOMContentLoaded", () => {
   const auth = getAuth(app);
   const loginButton = document.getElementById("login");
-  const cerrarButton = document.getElementById("cerrar");
+  const signOutButton = document.getElementById("cerrar");
 
   if (loginButton) {
     loginButton.addEventListener("click", (e) => {
@@ -25,22 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password-login").value;
 
       signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
+        .then(cred => {
           alert("Sesión iniciada");
         })
-        .catch((err) => {
+        .catch(err => {
           const errorCode = err.code;
 
           if (errorCode === "auth/invalid-email") alert("Correo no válido");
-          else if (errorCode === "auth/user-disabled") alert("Usuario deshabilitado");
-          else if (errorCode === "auth/user-not-found") alert("Usuario no encontrado");
-          else if (errorCode === "auth/wrong-password") alert("Contraseña incorrecta");
+          else if (errorCode == "auth/user-disabled") alert("Usuario deshabilitado");
+          else if (errorCode == "auth/user-not-found") alert("Usuario no encontrado");
+          else if (errorCode == "auth/wrong-password") alert("Contraseña incorrecta");
         });
     });
   }
 
-  if (cerrarButton) {
-    cerrarButton.addEventListener("click", (e) => {
+  if (signOutButton) {
+    signOutButton.addEventListener("click", (e) => {
       auth.signOut()
         .then(() => {
           alert("Sesión cerrada");
@@ -51,14 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  auth.onAuthStateChanged((user) => {
+  auth.onAuthStateChanged(user => {
     if (user) {
       console.log("Usuario activo");
       if (user.emailVerified) {
-        window.location.href = "/";
+        window.open('/');
       } else {
         auth.signOut();
       }
+    } else {
+      console.log("usuario inactivo")
     }
   });
 });
