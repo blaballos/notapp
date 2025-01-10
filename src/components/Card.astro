@@ -1,0 +1,22 @@
+---
+import PlusIcon from "./icons/PlusIcon.astro"
+import MenuIcon from "./icons/MenuIcon.astro"
+---
+
+<article class="w-full">
+    <ol>
+        <li class="bg-[#14202E] py-2 rounded-xl max-w-[272px] flex flex-col items-start">
+            <div class="w-full px-2">
+                <div class="flex items-center justify-between mb-2">
+                    <textarea name="titleCard" id="titleCard" class="bg-transparent text-white text-md font-semibold rounded-lg px-2">Nombre de la lista...</textarea>
+                    <button class="bg-[#88A9C3] rounded-lg p-2 text-gray-950 hover:bg-[#9DB8CD] transition duration-300">
+                        <MenuIcon class="size-4"/>
+                    </button>
+                </div>
+                <div>
+                    <button class="w-full inline-flex items-center justify-start gap-x-2 bg-[#14202E] text-white text-md font-semibold px-2 py-2 rounded-xl hover:bg-gray-400/50 transition duration-200">Añade nueva lista<PlusIcon class="size-4"/></button>
+                </div>
+            </div>
+        </li>
+    </ol>
+</article>
