@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <article class="w-full">
                 <div class="w-full bg-[#14202E] py-2 rounded-xl max-w-[272px] flex flex-col items-start px-2">
                     <div class="w-full flex items-center justify-between mb-2">
-                        <textarea name="titleCard" id="titleCard" class="bg-transparent text-white text-md font-semibold rounded-lg px-2">Nombre de la lista...</textarea>
+                        <textarea name="titleCard" id="titleCard" rows="1" class="bg-transparent text-white text-md font-semibold rounded-lg px-2 border-none focus:outline-none resize-none">Nombre de la lista...</textarea>
                     </div>
                     <div class="w-full">
                         <form class="flex justify-between items-center">
@@ -55,10 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const addItem = (list, text, id = null) => {
         const li = document.createElement("li");
         li.className = "item";
-        li.className = 'w-full bg-[#88A9C3] flex justify-between items-center rounded-lg mt-2 border-2 border-transparent hover:cursor-pointer hover:border-white text-gray-950 text-md font-medium px-2'
+        li.className = 'w-full bg-[#88A9C3] flex justify-between items-center rounded-lg mt-2 border-2 border-transparent hover:cursor-pointer hover:border-white'
         
-        const p = document.createElement("p");
-        p.textContent = text;
+        const textarea = document.createElement("textarea");
+        textarea.className = 'w-full bg-transparent text-sm resize-none font-medium px-2 border-none focus:outline-none cursor-pointer'
+        textarea.setAttribute('rows', '1')
+        textarea.setAttribute('readonly', 'true')
+        textarea.textContent = text;
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "x";
@@ -79,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             event.dataTransfer.setData("elemento", event.target.id);
         });
 
-        li.appendChild(p);
+        li.appendChild(textarea);
         li.appendChild(deleteButton);
         list.appendChild(li);
     };
