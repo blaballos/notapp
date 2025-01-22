@@ -1,6 +1,6 @@
 import { set } from "astro/zod";
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import firebase from "firebase/compat/app";
 
 const firebaseConfig = {
@@ -161,4 +161,20 @@ auth.onAuthStateChanged(user => {
   } else {
     setupCards([])
   }
+})
+
+// login with google
+
+const googleButton = document.querySelector('#sigin-google')
+
+googleButton.addEventListener('click', (e) => {
+  e.preventDefault()
+
+  const provider = auth.GoogleAuthProvider() 
+
+  auth.signInWithPopup(provider).then(result => {
+    console.log('iniciado con google')
+  }).catch(err => {
+    console.log(err)
+  })
 })
