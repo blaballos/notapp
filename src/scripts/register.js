@@ -44,3 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Botón de registro no encontrado.");
   }
 });
+
+// NEW SIGN UP CODE
+
+const signupForm = document.querySelector('#signup-form')
+
+signupForm.addEventListener('sumbit', (e) => {
+  e.preventDefault()
+
+  email = document.querySelector('#signup-email').value
+  password = document.querySelector('#signup-password').value
+
+  auth.createUserWithEmailAndPassword(email, password).then(userCredential => {
+    signupForm.reset()
+  })
+})
