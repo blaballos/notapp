@@ -1,31 +1,25 @@
 ---
+import GitHubIcon from "./icons/GitHubIcon.astro"
 import ArrowIcon from "./icons/ArrowIcon.astro"
 import SignOutIcon from "./icons/SignOutIcon.astro"
-import GitHubIcon from "./icons/GitHubIcon.astro"
 ---
 
 <header>
-    <nav class="bg-white flex fixed w-full z-50 top-0 start-0 items-center justify-between mx-auto p-8">
-        <div class="flex items-end justify-start space-x-8">
-            <a href="/">
-                <span class="text-2xl font-extrabold text-gray-950">Notapp</span>
+    <nav class="w-full bg-transparent inline-flex items-center justify-between p-4 lg:px-8 border-b border-gray-700">
+        <div class="flex lg:flex-1">
+            <a href="/" class="-m-1.5 p-1.5 flex flex-row items-center gap-x-2">
+                <span class="text-2xl font-extrabold text-white">Notapp</span>
             </a>
-            <ul class="flex gap-x-8">
-                <li class="border-b-2 border-transparent hover:border-gray-950 transition duration-300">
-                    <a href="#about-us" class="text-md font-semibold text-[#14202E]">Sobre nosotros</a>
-                </li>
-                <li class="border-b-2 border-transparent hover:border-gray-950 transition duration-300">
-                    <a href="#contact" class="text-md font-semibold text-[#14202E]">Contacto</a>
-                </li>
-                <li class="border-b-2 border-transparent hover:border-gray-950 transition duration-300">
-                    <a href="/workarea" rel="noopener noreferrer" class="text-md font-semibold text-[#14202E]">Tableros</a>
-                </li>
-            </ul>
         </div>
-        <div class="flex items-center justify-center space-x-4">
-            <a href="https://github.com/blaballos/notapp" rel="noopener noreferrer" target="_blank" aria-label="Go to GitHub repository" class="text-[#14202E]"><GitHubIcon class="size-7 hover:scale-125 transition duration-300"/></a>
-            <a id="signUpButtonMain" href="/register" class="text-md font-semibold text-[#14202E] hover:text-gray-950 transition duration-300">Registrarse</a>
-            <a id="signInButtonMain" href="/login" class="inline-flex items-center justify-center gap-x-2 bg-[#88A9C3] text-md font-bold border-none text-gray-950 relative px-4 z-30 py-2 rounded-lg after:-z-20 after:absolute after:size-1 after:bg-[#14202E] overflow-hidden after:left-2 after:bottom-0 after:translate-y-full after:rounded-lg after:hover:scale-[300] after:hover:transition-all after:hover:duration-1000 after:transition-all after:duration-700 hover:text-white transition-all duration-700">Iniciar sesión <ArrowIcon class="size-5"/></a>
+        <div class="flex gap-x-6 lg:gap-x-6">
+            <a href="/board" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Tablero</a>
+            <a href="/404" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Recursos</a>
+            <a href="/404" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Precios</a>
+        </div>
+        <div class="lg:flex lg:flex-1 lg:justify-end gap-x-4">
+            <a href="https://github.com/blaballos/notapp" rel="noopener noreferrer" target="_blank" aria-label="Go to GitHub repository" class="flex items-center text-white"><GitHubIcon class="size-7 hover:scale-105 transition duration-300"/></a>
+            <a id="signUpButtonMain" href="/register" class="flex items-center text-md font-semibold text-white hover:text-gray-400 transition duration-300">Registrarse</a>
+            <a id="signInButtonMain" href="/login" class="flex items-center bg-gradient-to-tr from-fuchsia-500 via-fuchsia-600 to-purple-600 p-2 rounded-xl gap-x-2 text-md font-semibold text-white hover:text-gray-200 transition duration-300">Iniciar sesión <ArrowIcon class="size-5"/></a>
             <button id="signOutButton" class="hidden items-center justify-center gap-x-2 bg-[#88A9C3] text-md font-bold border-none text-gray-950 relative px-4 z-30 py-2 rounded-lg after:-z-20 after:absolute after:size-1 after:bg-[#14202E] overflow-hidden after:left-2 after:bottom-0 after:translate-y-full after:rounded-lg after:hover:scale-[300] after:hover:transition-all after:hover:duration-1000 after:transition-all after:duration-700 hover:text-white transition-all duration-700">Cerrar sesión <SignOutIcon class="size-5"/></button>
         </div>
     </nav>
