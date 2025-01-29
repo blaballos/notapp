@@ -1,42 +1,40 @@
 ---
-const { id } = Astro.props
-
 import GitHubIcon from "./icons/GitHubIcon.astro"
 import DiscordIcon from "./icons/DiscordIcon.astro"
 import LinkIcon from "./icons/LinkIcon.astro"
 ---
 
-<footer id={id} class="bg-white flex justify-center items-center">
+<footer class="flex justify-center items-center border-t border-gray-700">
     <div class="flex flex-col max-w-7xl items-center justify-center p-8">
         <div class="flex flex-col items-center justify-center">
-            <h3 class="text-6xl font-extrabold text-[#14202E] mb-2">Comunidad</h3>
-            <p class="text-lg font-medium text-[#14202E] mb-4">¡Únete para mantenerte al tanto de nuestras próximas ideas y novedades!</p>
+            <h3 class="text-6xl font-extrabold text-white mb-2">Comunidad</h3>
+            <p class="text-lg font-medium text-white mb-4">¡Únete para mantenerte al tanto de nuestras próximas ideas y novedades!</p>
             <div class="flex max-w-md space-x-8">
                 <a href="https://github.com/blaballos/notapp" target="_blank" rel="noopener noreferrer" class="flex flex-col items-start gap-y-2 w-52 group">
-                    <span class="inline-flex items-center gap-x-2 text-md text-gray-950 font-bold">
+                    <span class="inline-flex items-center gap-x-2 text-md text-white font-bold">
                         <GitHubIcon class="size-5 lg:size-6"/>
                         GitHub
                         <LinkIcon class="size-4 font-normal group-hover:scale-110 transition duration-200"/>
                     </span>
-                    <p class="text-[#14202E] text-sm lg:text-md">
+                    <p class="text-white text-sm lg:text-md">
                         Para reportar errores, compartir ideas o contribuir al proyecto.
                     </p>
                 </a>
                 <a href="/404" class="flex flex-col items-start gap-y-2 w-52 group">
-                    <span class="inline-flex items-center gap-x-2 text-md text-gray-950 font-bold">
+                    <span class="inline-flex items-center gap-x-2 text-md text-white font-bold">
                         <DiscordIcon class="size-5 lg:size-6"/>
                         Discord
                         <LinkIcon class="size-4 font-normal group-hover:scale-110 transition duration-200"/>
                     </span>
-                    <p class="text-[#14202E] text-sm lg:text-md">
+                    <p class="text-white text-sm lg:text-md">
                         Próximamente.
                     </p>
                 </a>
             </div>
         </div>
-        <hr class="my-8 w-full border-[#14202E]">
+        <hr class="my-8 w-full border-gray-700">
         <div class="flex w-full items-center justify-center">
-            <span class="text-md font-semibold text-[#14202E]">© 2024 <a href="/" class="hover:underline underline-offset-4">Notapp</a> | Casi todos los derechos reservados</span>
+            <span class="text-md font-semibold text-white">© 2024 <a href="/" class="hover:underline underline-offset-4">Notapp</a> | Casi todos los derechos reservados</span>
         </div>
     </div>
 </footer>
