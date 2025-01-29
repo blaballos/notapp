@@ -1,0 +1,27 @@
+---
+import PlusIcon from './icons/PlusIcon.astro';
+import Card from './Card.astro';
+
+interface Props {
+    title: string;
+    class: string;
+    id: string;
+}
+
+const { class: className, title, id } = Astro.props
+---
+
+<div id={id} class="w-full flex flex-col col-span-1">
+    <header class="w-full flex justify-between items-center mb-4">
+        <div class=`${className} border-l-4`>
+            <h3 class="text-white text-lg font-semibold px-2">{title}</h3>
+        </div>
+        <div>
+            <button id="add-card-button" class="text-white"><PlusIcon class="size-6"/></button>
+        </div>
+    </header>
+    <div class="w-full space-y-4">
+        <Card />
+        <Card />
+    </div>
+</div>
