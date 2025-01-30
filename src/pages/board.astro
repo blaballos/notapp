@@ -1,19 +1,22 @@
 ---
-import PlusIcon from "../components/icons/PlusIcon.astro"
-
 import Layout from "../layouts/Layout.astro";
 import HeaderBoard from "../components/HeaderBoard.astro";
+import Status from "../components/Status.astro";
 ---
 
-<Layout>
+<Layout title="Tablero"
+description="Organiza tu proyecto, asigna tareas y administra tus tiempos con el tablero de Notapp.">
     <HeaderBoard />
-    <main>
-        <header class="w-full px-2 py-4 flex bg-[#9DB8CD]">
-            <textarea rows="1" class="bg-transparent text-lg font-semibold border-none resize-none focus:outline-none">Nombre del tablero</textarea>
-        </header>
-        <div id="cards-container" class="bg-[#2B4257] w-full h-screen flex justify-start items-start px-2 py-4 gap-x-2">
-            <button id="add-card-button" class="inline-flex items-center justify-center gap-x-2 bg-gray-300/50 text-white text-md font-semibold px-4 py-2 rounded-xl text-nowrap hover:bg-gray-400/50 transition duration-200">Añade nueva lista<PlusIcon class="size-4"/></button>
-        </div>
-        <script type="module" src="/src/scripts/cardFunctions.js" defer></script>
-    </main>
+    <div id="cards-container" class="max-w-7xl h-screen items-start grid grid-cols-4 gap-x-4 mx-auto mt-8">
+        <Status id="toDo" title="Por Realizar" class="border-red-500"/>
+        <Status id="inProgress" title="En Progreso" class="border-yellow-500"/>
+        <Status id="inReview" title="En Revisión" class="border-orange-500"/>
+        <Status id="Completed" title="Finalizados" class="border-green-500"/>
+    </div>
 </Layout>
+
+<style>
+	body, html {
+		background: #000;
+	}
+</style>
