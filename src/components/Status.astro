@@ -1,14 +1,14 @@
 ---
 import PlusIcon from './icons/PlusIcon.astro';
-import Card from './Card.astro';
 
 interface Props {
     title: string;
     class: string;
     id: string;
+    dataColum: string;
 }
 
-const { class: className, title, id } = Astro.props
+const { class: className, title, id, dataColum } = Astro.props
 ---
 
 <div id={id} class="w-full flex flex-col col-span-1">
@@ -17,11 +17,10 @@ const { class: className, title, id } = Astro.props
             <h3 class="text-white text-lg font-semibold px-2">{title}</h3>
         </div>
         <div>
-            <button id="add-card-button" class="text-white"><PlusIcon class="size-6"/></button>
+            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" data-colum={dataColum} class="text-white" type="button"><PlusIcon class="size-6"/></button>
         </div>
     </header>
-    <div class="w-full space-y-4">
-        <Card />
-        <Card />
+    <div class="w-full space-y-4 div-card">
+        
     </div>
 </div>
