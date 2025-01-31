@@ -1,18 +1,72 @@
 ---
+import 'flowbite'
 import Layout from "../layouts/Layout.astro";
 import HeaderBoard from "../components/HeaderBoard.astro";
 import Status from "../components/Status.astro";
+import CloseIcon from '../components/icons/CloseIcon.astro';
+import AlertIcon from '../components/icons/AlertIcon.astro';
+import DescriptionIcon from '../components/icons/DescriptionIcon.astro';
+import PencilIcon from '../components/icons/PencilIcon.astro';
 ---
 
 <Layout title="Tablero"
 description="Organiza tu proyecto, asigna tareas y administra tus tiempos con el tablero de Notapp.">
     <HeaderBoard />
     <div id="cards-container" class="max-w-7xl h-screen items-start grid grid-cols-4 gap-x-4 mx-auto mt-8">
-        <Status id="toDo" title="Por Realizar" class="border-red-500"/>
-        <Status id="inProgress" title="En Progreso" class="border-yellow-500"/>
-        <Status id="inReview" title="En Revisión" class="border-orange-500"/>
-        <Status id="Completed" title="Finalizados" class="border-green-500"/>
+        <Status id="toDo" title="Por Realizar" class="border-red-500" dataColum='toDo'></Status>
+        <Status id="inProgress" title="En Progreso" class="border-yellow-500" dataColum='inProgress'></Status>
+        <Status id="inReview" title="En Revisión" class="border-orange-500" dataColum='inReview'></Status>
+        <Status id="completed" title="Finalizados" class="border-green-500" dataColum='completed'></Status>
     </div>
+
+    <!-- Main modal -->
+    <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-black rounded-lg shadow-lg border border-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-700">
+                    <h3 class="text-xl font-semibold text-white">
+                        Crear nueva tarea
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-black rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center transition duration-200" data-modal-toggle="crud-modal">
+                        <CloseIcon />  
+                        <span class="sr-only">Cerrar</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <form class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div class="col-span-2">
+                            <label for="name" class="inline-flex items-center justify-start mb-2 text-lg font-medium text-white gap-x-2"><PencilIcon class="size-5"/>Título</label>
+                            <input type="text" name="name" id="titleTask" class="bg-transparent border border-gray-700 text-white text-sm rounded-lg focus:ring-white focus:border-white block w-full p-2.5 mb-1" placeholder="Introducir título">
+                            <span id="alert-span-title" class="hidden text-xs font-medium text-red-500">Por favor, introduzca un título para la tarea</span>
+                        </div>
+                        <div class="col-span-2">
+                            <label for="name" class="inline-flex items-center justify-start mb-2 text-lg font-medium text-white gap-x-2"><DescriptionIcon class="size-5"/>Descripción</label>
+                            <textarea id="descriptionTask" rows="4" class="block p-2.5 w-full text-sm text-white bg-transparent rounded-lg border border-gray-700 focus:ring-white focus:border-white resize-none mb-1" placeholder="Introducir descripción"></textarea>                    
+                            <span id="alert-span-description" class="hidden text-xs font-medium text-red-500">Por favor, introduzca una descripción para la tarea</span>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="prioridad" class="inline-flex items-center justify-start mb-2 text-lg font-medium text-white gap-x-2"><AlertIcon class="size-5"/>Prioridad</label>
+                            <select id="category" class="bg-black border border-gray-700 text-white text-sm rounded-lg focus:ring-white focus:border-white block w-full p-2.5">
+                                <option value="ALTA">ALTA</option>
+                                <option value="MEDIA">MEDIA</option>
+                                <option selected value="BAJA">BAJA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="addTask" type="button" class="w-full text-white inline-flex justify-center items-center bg-blue-500 hover:bg-blue-700 font-semibold rounded-lg text-md px-5 py-2.5 text-center transition duration-300">
+                        Añadir tarea
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="/src/scripts/addTaskCard.js" defer></script>
 </Layout>
 
 <style>
