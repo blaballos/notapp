@@ -1,32 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const columns = {
-        toDo: document.querySelector('#toDo .container'),
-        inProgress: document.querySelector('#inProgress .container'),
-        inReview: document.querySelector('#inReview .container'),
-        completed: document.querySelector('#completed .container')
+    const BADGES = {
+        ALTA: {
+            priority: "Alta",
+            class: "text-red-500 border-red-500 bg-red-100/30",
+        },
+        MEDIA: {
+            priority: "Media",
+            class: "text-yellow-500 border-yellow-500 bg-yellow-100/30",
+        },
+        BAJA: {
+            priority: "Baja",
+            class: "text-green-500 border-green-500 bg-green-100/30",
+        },
     };
 
-    const input_title = document.querySelector('#titleTask');
-    const input_description = document.querySelector('#descriptionTask');
-    const addTaskButton = document.querySelector('#addTask');
-    const alertSpanTitle = document.getElementById('alert-span-title');
-    const alertSpanDescription = document.getElementById('alert-span-description');
+    const createBadge = () => {
+        const priorityElement = document.querySelector("#priority");
+        if (!priorityElement) return BADGES.BAJA;
+        const badgeValue = priorityElement.value;
+        return BADGES[badgeValue] || BADGES.BAJA;
+    };
 
-    let currentColumn = "toDo"; 
-    
-    alertSpanTitle.style.display = 'none';
-    alertSpanDescription.style.display = 'none';
+    const columns = {
+        toDo: document.querySelector("#toDo .container"),
+        inProgress: document.querySelector("#inProgress .container"),
+        inReview: document.querySelector("#inReview .container"),
+        completed: document.querySelector("#completed .container"),
+    };
 
-    document.querySelectorAll("[data-modal-toggle='crud-modal']").forEach(button => {
+    const input_title = document.querySelector("#titleTask");
+    const input_description = document.querySelector("#descriptionTask");
+    const addTaskButton = document.querySelector("#addTask");
+    const alertSpanTitle = document.getElementById("alert-span-title");
+    const alertSpanDescription = document.getElementById("alert-span-description");
+
+    let currentColumn = "toDo";
+
+    alertSpanTitle.style.display = "none";
+    alertSpanDescription.style.display = "none";
+
+    document.querySelectorAll("[data-modal-toggle='crud-modal']").forEach((button) => {
         button.addEventListener("click", function () {
-            currentColumn = this.getAttribute("data-colum") || "toDo";
+            currentColumn = this.getAttribute("data-column") || "toDo";
         });
     });
-    
-    const createCard = (title, description) => {
-        const card = document.createElement('div');
-        card.classList.add('task-card', "mb-4");
-        card.setAttribute('draggable', 'true');
+
+    const createCard = (title, description, badge) => {
+        const card = document.createElement("div");
+        card.classList.add("task-card", "mb-4");
+        card.setAttribute("draggable", "true");
         card.id = `task-${Date.now()}`;
 
         card.innerHTML = `
@@ -37,28 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <div class="w-full p-2 space-y-2">
                         <p class="text-white text-sm font-medium mb-2">${description}</p>
+                        <span class="${badge.class} p-1 rounded-lg border">${badge.priority}</span>
                     </div>
                 </div>
             </article>
         `;
-        
-        card.addEventListener('dragstart', e => {
+
+        card.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("text/plain", card.id);
-            console.log('drag start', card.id);
+            console.log("drag start", card.id);
         });
 
         return card;
     };
-    
-    Object.values(columns).forEach(container => {
-        container.addEventListener('dragover', e => {
+
+    Object.values(columns).forEach((container) => {
+        container.addEventListener("dragover", (e) => {
             e.preventDefault();
-            console.log('drag over');
+            console.log("drag over");
         });
 
-        container.addEventListener('drop', e => {
+        container.addEventListener("drop", (e) => {
             e.preventDefault();
-            console.log('drop');
+            console.log("drop");
 
             const cardId = e.dataTransfer.getData("text/plain");
             const draggedCard = document.getElementById(cardId);
@@ -69,27 +92,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    addTaskButton.addEventListener('click', (e) => {
+    addTaskButton.addEventListener("click", (e) => {
         e.preventDefault();
 
         const title = input_title.value.trim();
         const description = input_description.value.trim();
 
         if (title === "") {
-            alertSpanTitle.style.display = 'inline-flex';
+            alertSpanTitle.style.display = "inline-flex";
             return;
         } else {
-            alertSpanTitle.style.display = 'none';
+            alertSpanTitle.style.display = "none";
         }
 
         if (description === "") {
-            alertSpanDescription.style.display = 'inline-flex';
+            alertSpanDescription.style.display = "inline-flex";
             return;
         } else {
-            alertSpanDescription.style.display = 'none';
+            alertSpanDescription.style.display = "none";
         }
 
-        const cardCreate = createCard(title, description);
+        const badge = createBadge();
+
+        const cardCreate = createCard(title, description, badge);
 
         if (columns[currentColumn]) {
             columns[currentColumn].appendChild(cardCreate);
