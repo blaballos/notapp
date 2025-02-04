@@ -1,4 +1,3 @@
-
 import { saveTasks } from "./storage";
 
 function insertTaskIntoColumn(task) {
@@ -6,20 +5,21 @@ function insertTaskIntoColumn(task) {
     if (!column) return;
 
     const taskElement = document.createElement("div");
-    taskElement.classList.add("task-card", "p-4", "bg-gray-800", "rounded-lg");
+    taskElement.classList.add("task-card", "rounded-lg", "bg-transparent", "border", "border-gray-700", "rounded-xl", "hover:cursor-grab");
     taskElement.setAttribute("draggable", "true");
     taskElement.id = task.id;
-    taskElement.innerHTML = `        <article class="bg-transparent border border-gray-700 rounded-xl p-2 hover:cursor-grab">
-            <div class="w-full flex flex-col space-y-2">
-                <div class="flex justify-start border-b border-gray-700 p-2">
-                    <h2 class="text-white text-md font-semibold">${task.title}</h2>
-                </div>
-                <div class="w-full p-2 space-y-2">
-                    <p class="text-white text-sm font-medium mb-2">${task.description}</p>
-                    <span class="text-xs font-bold text-${task.priority === "ALTA" ? "red" : task.priority === "MEDIA" ? "yellow" : "green"}-500 p-1 rounded-lg border">${task.priority}</span>
-                </div>
+
+    const priorityColor = task.priority === "ALTA" ? "red" : task.priority === "MEDIA" ? "yellow" : "green";
+    taskElement.innerHTML = `
+        <div class="w-full flex flex-col space-y-2">
+            <div class="flex justify-start border-b border-gray-700 p-2">
+                <h2 class="text-white text-md font-semibold">${task.title}</h2>
             </div>
-        </article>
+            <div class="w-full p-2 space-y-2">
+                <p class="text-white text-sm font-medium mb-2">${task.description}</p>
+                <span class="text-${priorityColor}-500 border-${priorityColor}-500 p-1 rounded-lg border text-xs font-bold">${task.priority}</span>
+            </div>
+        </div>
     `;
 
     taskElement.addEventListener("dragstart", (e) => {
@@ -27,10 +27,8 @@ function insertTaskIntoColumn(task) {
     });
 
     column.querySelector(".container").appendChild(taskElement);
-
 }
 
-// Identificamos las columnas del tablero
 const columns = {
     toDo: document.querySelector("#toDo .container"),
     inProgress: document.querySelector("#inProgress .container"),
@@ -38,49 +36,44 @@ const columns = {
     completed: document.querySelector("#completed .container"),
 };
 
-// Variable para saber en qué columna agregar la tarjeta
 let currentColumn = "toDo";
 
-const alertSpanTitle = document.getElementById('alert-span-title')
-const alertSpanDescription = document.getElementById('alert-span-description')
+const alertSpan = document.getElementById('alert-span');
 
-// Ocultamos las alertas de validación
-alertSpanTitle.style.display = "none";
-alertSpanDescription.style.display = "none";
+const spanHidden = () => {
+    
+}
 
-// Capturamos la columna actual cuando se abre el modal
 document.querySelectorAll("[data-modal-toggle='crud-modal']").forEach((button) => {
-    button.addEventListener("click", function () {
-        currentColumn = this.getAttribute("data-column") || "toDo";
+    button.addEventListener("click", () => {
+        currentColumn = button.getAttribute("data-column") || "toDo";
     });
 });
 
-// Habilitamos el arrastre de las tarjetas
 Object.values(columns).forEach((container) => {
-    container.addEventListener("dragover", (e) => {
-        e.preventDefault();
-    });
+    container.addEventListener("dragover", (e) => e.preventDefault());
 
     container.addEventListener("drop", (e) => {
         e.preventDefault();
-
         const cardId = e.dataTransfer.getData("text/plain");
         const draggedCard = document.getElementById(cardId);
 
         if (draggedCard) {
             container.appendChild(draggedCard);
-            saveTasks(); // Guardamos la nueva ubicación en localStorage
+            saveTasks();
         }
     });
 });
 
-const addTaskButton = document.getElementById('addTask')
+const addTaskButton = document.getElementById('addTask');
+const titleInput = document.getElementById("titleTask");
+const descriptionInput = document.getElementById("descriptionTask");
 
 addTaskButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    const titleInput = document.getElementById("titleTask");
-    const descriptionInput = document.getElementById("descriptionTask");
+    // Ocultar el alertSpan al inicio
+    alertSpan.style.display = 'none';
 
     if (!titleInput || !descriptionInput) {
         console.error("Error: Elementos del formulario no encontrados.");
@@ -90,38 +83,33 @@ addTaskButton.addEventListener("click", (e) => {
     const title = titleInput.value.trim();
     const description = descriptionInput.value.trim();
     const priority = document.getElementById("priority").value;
-    const column = document.querySelector("[data-modal-toggle='crud-modal']").getAttribute("data-column") || "toDo";
 
-    if (title === "") {
-        alertSpanTitle.style.display = "inline-flex";
+    // Validar que ambos campos tengan valores
+    if (!title || !description) {
+        alertSpan.style.display = 'inline-flex'; // Mostrar alerta si falta alguno
         return;
     } else {
-        alertSpanTitle.style.display = "none";
-    }
+        const newTask = {
+            id: `task-${Date.now()}`,
+            title,
+            description,
+            priority,
+            column: currentColumn
+        };
     
-    if (description === "") {
-        alertSpanDescription.style.display = "inline-flex";
-        return;
-    } else {
-        alertSpanDescription.style.display = "none";
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push(newTask);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    
+        insertTaskIntoColumn(newTask);
+    
+        // Ocultar el alertSpan antes de limpiar los inputs
+    
+    
+        // Limpiar los campos del formulario
+        titleInput.value = "";
+        descriptionInput.value = "";
     }
-
-    const newTask = {
-        id: `task-${Date.now()}`,
-        title,
-        description,
-        priority,
-        column
-    };
-
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.push(newTask);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-
-    insertTaskIntoColumn(newTask);
-
-    titleInput.value = "";
-    descriptionInput.value = "";
 });
 
 export { insertTaskIntoColumn };
