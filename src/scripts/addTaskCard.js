@@ -12,8 +12,9 @@ function insertTaskIntoColumn(task) {
     const priorityColor = task.priority === "ALTA" ? "red" : task.priority === "MEDIA" ? "yellow" : "green";
     taskElement.innerHTML = `
         <div class="w-full flex flex-col space-y-2">
-            <div class="flex justify-start border-b border-gray-700 p-2">
+            <div class="flex justify-between items-center border-b border-gray-700 p-2">
                 <h2 class="text-white text-md font-semibold">${task.title}</h2>
+                <button class="delete-card text-gray-400 bg-transparent hover:bg-gray-200 hover:text-black rounded-lg text-lg font-bold w-8 h-8 ms-auto inline-flex justify-center items-center transition duration-200">x</button>
             </div>
             <div class="w-full p-2 space-y-2">
                 <p class="text-white text-sm font-medium mb-2">${task.description}</p>
@@ -24,6 +25,16 @@ function insertTaskIntoColumn(task) {
 
     taskElement.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", taskElement.id);
+    });
+
+    // Agregar funcionalidad para eliminar la tarjeta
+    taskElement.querySelector(".delete-card").addEventListener("click", () => {
+        taskElement.remove();
+        
+        // Eliminar la tarea de localStorage
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks = tasks.filter(t => t.id !== task.id);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     });
 
     column.querySelector(".container").appendChild(taskElement);
@@ -39,10 +50,6 @@ const columns = {
 let currentColumn = "toDo";
 
 const alertSpan = document.getElementById('alert-span');
-
-const spanHidden = () => {
-    
-}
 
 document.querySelectorAll("[data-modal-toggle='crud-modal']").forEach((button) => {
     button.addEventListener("click", () => {
@@ -72,7 +79,6 @@ const descriptionInput = document.getElementById("descriptionTask");
 addTaskButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    // Ocultar el alertSpan al inicio
     alertSpan.style.display = 'none';
 
     if (!titleInput || !descriptionInput) {
@@ -84,9 +90,8 @@ addTaskButton.addEventListener("click", (e) => {
     const description = descriptionInput.value.trim();
     const priority = document.getElementById("priority").value;
 
-    // Validar que ambos campos tengan valores
     if (!title || !description) {
-        alertSpan.style.display = 'inline-flex'; // Mostrar alerta si falta alguno
+        alertSpan.style.display = 'inline-flex';
         return;
     } else {
         const newTask = {
@@ -103,10 +108,6 @@ addTaskButton.addEventListener("click", (e) => {
     
         insertTaskIntoColumn(newTask);
     
-        // Ocultar el alertSpan antes de limpiar los inputs
-    
-    
-        // Limpiar los campos del formulario
         titleInput.value = "";
         descriptionInput.value = "";
     }
