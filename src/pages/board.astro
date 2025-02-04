@@ -39,13 +39,12 @@ description="Organiza tu proyecto, asigna tareas y administra tus tiempos con el
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
                             <label for="name" class="inline-flex items-center justify-start mb-2 text-lg font-medium text-white gap-x-2"><PencilIcon class="size-5"/>Título</label>
-                            <input type="text" name="name" id="titleTask" class="bg-transparent border border-gray-700 text-white text-sm rounded-lg focus:ring-white focus:border-white block w-full p-2.5 mb-1" placeholder="Introducir título">
-                            <span id="alert-span-title" class="hidden text-xs font-medium text-red-500">Por favor, introduzca un título para la tarea</span>
+                            <input type="text" name="name" id="titleTask" class="bg-transparent border border-gray-700 text-white text-sm rounded-lg focus:ring-white focus:border-white block w-full p-2.5 mb-1" placeholder="Introducir título" required>
                         </div>
                         <div class="col-span-2">
                             <label for="name" class="inline-flex items-center justify-start mb-2 text-lg font-medium text-white gap-x-2"><DescriptionIcon class="size-5"/>Descripción</label>
-                            <textarea id="descriptionTask" rows="4" class="block p-2.5 w-full text-sm text-white bg-transparent rounded-lg border border-gray-700 focus:ring-white focus:border-white resize-none mb-1" placeholder="Introducir descripción"></textarea>                    
-                            <span id="alert-span-description" class="hidden text-xs font-medium text-red-500">Por favor, introduzca una descripción para la tarea</span>
+                            <textarea id="descriptionTask" rows="4" class="block p-2.5 w-full text-sm text-white bg-transparent rounded-lg border border-gray-700 focus:ring-white focus:border-white resize-none mb-1" placeholder="Introducir descripción" required></textarea>                    
+                            <span id="alert-span" class="hidden text-xs font-medium text-red-500">Por favor, complete todos los campos</span>
                         </div>
                         <div class="col-span-2 sm:col-span-1">
                             <label for="priority" class="inline-flex items-center justify-start mb-2 text-lg font-medium text-white gap-x-2"><AlertIcon class="size-5"/>Prioridad</label>
@@ -56,7 +55,7 @@ description="Organiza tu proyecto, asigna tareas y administra tus tiempos con el
                             </select>
                         </div>
                     </div>
-                    <button id="addTask" type="button" class="w-full text-white inline-flex justify-center items-center bg-blue-500 hover:bg-blue-700 font-semibold rounded-lg text-md px-5 py-2.5 text-center transition duration-300">
+                    <button id="addTask" data-modal-hide="crud-modal" type="button" class="w-full text-white inline-flex justify-center items-center bg-blue-500 hover:bg-blue-700 font-semibold rounded-lg text-md px-5 py-2.5 text-center transition duration-300">
                         Añadir tarea
                     </button>
                 </form>
@@ -68,7 +67,6 @@ description="Organiza tu proyecto, asigna tareas y administra tus tiempos con el
     <script type="module" src="/src/scripts/main.js" defer></script>
     <script type="module" src="/src/scripts/addTaskCard.js" defer></script>
     <script type="module" src="/src/scripts/storage.js" defer></script>
-    <script type="module" src="/src/scripts/constants.js" defer></script>
     
 </Layout>
 
