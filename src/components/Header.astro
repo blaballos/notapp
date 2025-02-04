@@ -13,11 +13,11 @@ import SignOutIcon from "./icons/SignOutIcon.astro"
         </div>
         <div class="flex gap-x-6 lg:gap-x-6">
             <a href="/board" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Tablero</a>
-            <a href="/404" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Recursos</a>
-            <a href="/404" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Precios</a>
+            <a href="/404" class="hidden md:flex text-md font-medium text-white hover:text-gray-400 transition duration-200">Recursos</a>
+            <a href="/404" class="hidden md:flex text-md font-medium text-white hover:text-gray-400 transition duration-200">Precios</a>
         </div>
         <div class="lg:flex lg:flex-1 lg:justify-end gap-x-4">
-            <a href="https://github.com/blaballos/notapp" rel="noopener noreferrer" target="_blank" aria-label="Go to GitHub repository" class="flex items-center text-white"><GitHubIcon class="size-7 hover:scale-105 transition duration-300"/></a>
+            <a href="https://github.com/blaballos/notapp" rel="noopener noreferrer" target="_blank" aria-label="Go to GitHub repository" class="hidden lg:flex items-center text-white"><GitHubIcon class="size-7 hover:scale-105 transition duration-300"/></a>
             <a id="signUpButtonMain" href="/register" class="flex items-center text-md font-semibold text-white hover:text-gray-400 transition duration-300">Registrarse</a>
             <a id="signInButtonMain" href="/login" class="flex items-center bg-gradient-to-tr from-fuchsia-500 via-fuchsia-600 to-purple-600 p-2 rounded-xl gap-x-2 text-md font-semibold text-white hover:text-gray-200 transition duration-300">Iniciar sesión <ArrowIcon class="size-5"/></a>
             <button id="signOutButton" class="hidden items-center bg-gradient-to-tr from-fuchsia-500 via-fuchsia-600 to-purple-600 p-2 rounded-xl gap-x-2 text-md font-semibold text-white hover:text-gray-200 transition duration-300">Cerrar sesión <SignOutIcon class="size-5"/></button>
