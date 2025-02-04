@@ -9,7 +9,7 @@ function insertTaskIntoColumn(task) {
     taskElement.setAttribute("draggable", "true");
     taskElement.id = task.id;
 
-    const priorityColor = task.priority === "ALTA" ? "red" : task.priority === "MEDIA" ? "yellow" : "green";
+    const priorityColor = task.priority === "ALTA" ? "red" : task.priority === "MEDIA" ? "orange" : "green";
     taskElement.innerHTML = `
         <div class="w-full flex flex-col space-y-2">
             <div class="flex justify-between items-center border-b border-gray-700 p-2">
