@@ -3,6 +3,9 @@ import { createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChang
 
 document.addEventListener("DOMContentLoaded", () => {
     const signUpButton = document.getElementById("signUpButton");
+    const emailAlert = document.getElementById('email-alert')
+    const passwordAlert = document.getElementById('password-alert')
+    const span = document.createElement('span')
 
     if (signUpButton) {
         signUpButton.addEventListener("click", (e) => {
@@ -11,26 +14,46 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = document.getElementById("email-sign-up").value;
             const password = document.getElementById("password-sign-up").value;
 
+
             createUserWithEmailAndPassword(auth, email, password)
                 .then((cred) => {
                     console.log("Usuario creado correctamente:", cred.user);
                     return sendEmailVerification(auth.currentUser);
                 })
                 .then(() => {
-                    console.log("Correo de verificación enviado.");
+                    alert("Correo de verificación enviado. Verifica tu correo e inicia sesión");
                 })
                 .catch((err) => {
                     const errorMessage = err.code;
 
                     switch (errorMessage) {
                         case "auth/email-already-in-use":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">El correo electrónico ya está en uso</p>
+                            `
+                            emailAlert.appendChild(span)
                             console.log("El correo electrónico ya está en uso");
                             break;
                         case "auth/invalid-email":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">El correo electrónico no es válido</p>
+                            `
+                            emailAlert.appendChild(span)
                             console.log("El correo electrónico no es válido");
                             break;
                         case "auth/weak-password":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">La contraseña ingresada es débil</p>
+                            `
+                            passwordAlert.appendChild(span)
                             console.log("La contraseña ingresada es débil");
+                            break;
+                        case "auth/missing-password":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">Por favor, ingrese una contraseña</p>
+                            `
+                            passwordAlert.appendChild(span)
+                            console.log("Por favor, ingrese una contraseña");
                             break;
                         default:
                             console.error("Error:", errorMessage);

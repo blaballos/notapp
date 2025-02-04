@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const signUpButtonMain = document.getElementById("signUpButtonMain");
     const signUpButtonHero = document.getElementById("signUpButtonHero");
 
+    const emailAlert = document.getElementById('email-alert')
+    const passwordAlert = document.getElementById('password-alert')
+    const span = document.createElement('span')
+
     // Inicio de sesión con Google
     if (googleButton) {
         googleButton.addEventListener("click", (e) => {
@@ -46,16 +50,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     switch (errorMessage) {
                         case "auth/invalid-email":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">El correo electrónico no es válido</p>
+                            `
+                            emailAlert.appendChild(span)
                             console.log("El correo electrónico no es válido");
                             break;
                         case "auth/user-disabled":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">El usuario fue deshabilitado</p>
+                            `
+                            emailAlert.appendChild(span)
                             console.log("El usuario fue deshabilitado");
                             break;
                         case "auth/user-not-found":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">Usuario no encontrado</p>
+                            `
+                            emailAlert.appendChild(span)
                             console.log("Usuario no encontrado");
                             break;
                         case "auth/wrong-password":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">La contraseña no es correcta</p>
+                            `
+                            passwordAlert.appendChild(span)
                             console.log("La contraseña no es correcta");
+                            break;
+                        case "auth/invalid-credential":
+                            span.innerHTML = `
+                            <p class="text-red-500 font-medium text-xs mb-2">Usuario o contraseña incorrectos</p>
+                            `
+                            passwordAlert.appendChild(span)
+                            console.log("Usuario o contraseña incorrectos");
                             break;
                         default:
                             console.error("Error:", errorMessage);
