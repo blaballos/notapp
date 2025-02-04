@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordAlert = document.getElementById('password-alert')
     const span = document.createElement('span')
 
-    // Inicio de sesión con Google
     if (googleButton) {
         googleButton.addEventListener("click", (e) => {
             e.preventDefault();
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Inicio de sesión con correo y contraseña
     if (signInButton) {
         signInButton.addEventListener("click", (e) => {
             e.preventDefault();
@@ -91,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Cerrar sesión
     if (signOutButton) {
         signOutButton.addEventListener("click", (e) => {
             e.preventDefault();
@@ -106,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Actualización del estado del usuario
     onAuthStateChanged(auth, (user) => {
         if (user) {
             if (user.emailVerified) {
@@ -121,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Función para actualizar la UI
     const updateUI = (user) => {
         if (user) {
             signOutButton.style.display = "inline-flex";

@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = document.getElementById("email-sign-up").value;
             const password = document.getElementById("password-sign-up").value;
 
-
             createUserWithEmailAndPassword(auth, email, password)
                 .then((cred) => {
                     console.log("Usuario creado correctamente:", cred.user);
@@ -64,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error('El botón "Registrarse" no se encuentra en el DOM.');
     }
 
-        // Actualización del estado del usuario
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 if (user.emailVerified) {

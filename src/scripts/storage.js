@@ -6,7 +6,7 @@ const saveTasks = () => {
             title: card.querySelector("h2").innerText,
             description: card.querySelector("p").innerText,
             priority: card.querySelector("span").innerText,
-            column: card.closest(".container")?.id || "toDo" // Asegura que tenga una columna válida
+            column: card.closest(".container")?.id || "toDo"
         });
     });
 

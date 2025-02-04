@@ -27,11 +27,9 @@ function insertTaskIntoColumn(task) {
         e.dataTransfer.setData("text/plain", taskElement.id);
     });
 
-    // Agregar funcionalidad para eliminar la tarjeta
     taskElement.querySelector(".delete-card").addEventListener("click", () => {
         taskElement.remove();
         
-        // Eliminar la tarea de localStorage
         let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
         tasks = tasks.filter(t => t.id !== task.id);
         localStorage.setItem("tasks", JSON.stringify(tasks));
