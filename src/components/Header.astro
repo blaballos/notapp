@@ -12,7 +12,7 @@ import SignOutIcon from "./icons/SignOutIcon.astro"
             </a>
         </div>
         <div class="flex gap-x-6 lg:gap-x-6">
-            <a href="/board" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Tablero</a>
+            <a id="tablero-button" href="/board" class="text-md font-medium text-white hover:text-gray-400 transition duration-200">Tablero</a>
             <a href="/404" class="hidden md:flex text-md font-medium text-white hover:text-gray-400 transition duration-200">Recursos</a>
             <a href="/404" class="hidden md:flex text-md font-medium text-white hover:text-gray-400 transition duration-200">Precios</a>
         </div>
@@ -23,5 +23,4 @@ import SignOutIcon from "./icons/SignOutIcon.astro"
             <button id="signOutButton" class="hidden items-center bg-gradient-to-tr from-fuchsia-500 via-fuchsia-600 to-purple-600 p-2 rounded-xl gap-x-2 text-md font-semibold text-white hover:text-gray-200 transition duration-300">Cerrar sesión <SignOutIcon class="size-5"/></button>
         </div>
     </nav>
-    <script is:inline src="/js/signIn.js" defer></script>
 </header>
